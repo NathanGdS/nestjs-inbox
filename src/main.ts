@@ -11,9 +11,7 @@ async function bootstrap() {
     const port = process.env.PORT || 3000;
     await app.listen(port);
     const loggerInstance = app.get(Logger);
-    loggerInstance.log(
-      `🚀 Application is running ons: http://localhost:${port}`
-    );
+    loggerInstance.log(`🚀 Application is running on: ${await app.getUrl()}`);
   });
 }
 bootstrap();
