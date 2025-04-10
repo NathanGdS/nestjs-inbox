@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { InboxMessage } from './entities/inbox-message.entity';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class InboxService {
@@ -14,14 +15,15 @@ export class InboxService {
     private inboxQueue: Queue
   ) {}
 
-  // @Cron('45 * * * * *')
-  async enqueuePendingMessages(batchSize = 100): Promise<void> {
+  @Cron('5 * * * * *')
+  // setting batchSize to 1 to show that the other clusters will handle different messages
+  async enqueuePendingMessages(batchSize = 1): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
     try {
-      this.logger.log('Querying messages');
+      this.logger.log('Pooling pending messages');
       const messages = await queryRunner.manager.query<InboxMessage[]>(
         `SELECT * FROM inbox_messages WHERE processed = false FOR UPDATE SKIP LOCKED LIMIT $1`,
         [batchSize]
