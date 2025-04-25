@@ -4,6 +4,7 @@ import {
   Body,
   ConflictException,
   Logger,
+  Get,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -48,5 +49,10 @@ export class InboxController {
     }
 
     return { status: 'queued' };
+  }
+
+  @Get()
+  async listEvents() {
+    return this.inboxRepo.find();
   }
 }

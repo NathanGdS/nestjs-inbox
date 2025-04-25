@@ -15,7 +15,7 @@ export class InboxService {
     private inboxQueue: Queue
   ) {}
 
-  @Cron('5 * * * * *')
+  @Cron('5 * * * * *') // run each 5 seconds
   // setting batchSize to 1 to show that the other clusters will handle different messages
   async enqueuePendingMessages(batchSize = 1): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
