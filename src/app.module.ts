@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InboxModule } from './inbox/inbox.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { LoggerModule } from 'nestjs-pino';
     }),
     InboxModule,
     ScheduleModule.forRoot(),
-    LoggerModule.forRoot(),
   ],
 })
 export class AppModule {}
