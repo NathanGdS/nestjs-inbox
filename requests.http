@@ -1,0 +1,13 @@
+
+### List Inboxes
+GET http://localhost:3000/inbox HTTP/1.1
+content-type: application/json
+
+### Create an Event
+POST http://localhost:3000/inbox HTTP/1.1
+content-type: application/json
+
+{
+    "type": "order_created",
+    "payload": {"customerName": "Test", "product": "Book"}
+}
