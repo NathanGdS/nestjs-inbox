@@ -60,7 +60,7 @@ To validate scalability:
 npm install
 
 # Run the app in clustered mode
-npm run start:cluster
+npm run start:dev
 ```
 
 ## 📫 Endpoints
